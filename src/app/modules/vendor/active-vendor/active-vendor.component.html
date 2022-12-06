@@ -1,38 +1,62 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
+            <form [formGroup]= "adduserform">
             <div class="mb-3">
+             
                 <label for="fname" class="form-label">Name</label>
-                <input type="text" class="form-control" id="fname" placeholder="">
+                <span class="red" *ngIf="adduserform.get('name')?.invalid && adduserform.get('name')?.touched" class="red">Name should be required</span>
+
+                <input type="text" formControlName="name" class="form-control" id="fname" placeholder="Enter the name of the user" [class.is-invalid]="adduserform.get('name')?.invalid && adduserform.get('name')?.touched">
             </div>
 
             <div class="mb-3">
                 <label for="username" class="form-label">Email</label>
-                <input type="email" class="form-control" id="username" placeholder="">
+                <span class="red" *ngIf="adduserform.get('email')?.invalid && adduserform.get('email')?.touched">
+                    Email should be required
+                    </span>
+                <input type="email" formControlName="email" class="form-control" id="username" placeholder="Enter valid e-mail id" [class.is-invalid]="adduserform.get('email')?.invalid && adduserform.get('email')?.touched">
             </div>
 
             <div class="mb-3">
                 <label for="bio" class="form-label">Bio</label>
-                <textarea class="form-control" id="bio" rows="3"></textarea>
+                <span class="red" *ngIf="adduserform.get('bio')?.invalid && adduserform.get('bio')?.touched">
+                    Bio Field should be required
+                    </span>
+                <textarea formControlName="bio" class="form-control" id="bio" rows="3" [class.is-invalid]="adduserform.get('bio')?.invalid && adduserform.get('bio')?.touched"></textarea>
+                
             </div>
 
             <div class="mb-3">
-                <select class="form-select" aria-label="Default select example">
+                <span class="red" *ngIf="adduserform.get('domain')?.invalid && adduserform.get('domain')?.touched">
+                    Select any ONE
+                    </span>
+                <select formControlName="domain" class="form-select" aria-label="Default select example" [class.is-invalid]="adduserform.get('domain')?.invalid && adduserform.get('domain')?.touched">
                     <option value="">Please Select Domain</option>
                     <option value="erp">ERP</option>
                     <option value="crm">CRM</option>
                     <option value="ecommerce">E-commerce</option>
                 </select>
+                
             </div>
+        
 
             <div class="mb-3">
-                <button type="button" class="btn btn-primary">Submit</button>
+
+                <button type="submit" class="btn btn-primary"style="margin-left: auto; width: 30%;"
+                [disabled]="adduserform.invalid" (click)="onsubmit()"
+           >
+           Submit
+           </button>
             </div>
+        </form>
         </div>
 
         <div class="col-md-6">
             <h1>Object should be print here</h1>
+            <div *ngFor = "let v of val | keyvalue">
+                {{v.key}} : {{v.value}}
+            </div>
         </div>
     </div>
-
 </div>
